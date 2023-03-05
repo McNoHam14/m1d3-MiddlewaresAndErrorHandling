@@ -17,6 +17,11 @@ console.log(
   join(dirname(fileURLToPath(import.meta.url)), "authors.json")
 );
 
+const getAuthors = () => JSON.parse(fs.readFileSync(authorsJSONPath));
+
+const writeAuthors = (authorsArray) =>
+  fs.writeFileSync(authorsJSONPath, JSON.stringify(authorsArray));
+
 // POST (new author)
 
 authorsRouter.post("/", (req, res) => {
@@ -29,13 +34,13 @@ authorsRouter.post("/", (req, res) => {
     id: uniqid(),
   };
 
-  const authorsArray = JSON.parse(fs.readFileSync(authorsJSONPath));
+  const authorsArray = getAuthors();
 
   authorsArray.push(newAuthor);
 
   console.log("B", newAuthor);
 
-  fs.writeFileSync(authorsJSONPath, JSON.stringify(authorsArray));
+  writeAuthors(authorsArray);
 
   res.status(201).send({ id: newAuthor.id });
 });
@@ -47,7 +52,8 @@ authorsRouter.get("/", (req, res) => {
   console.log("C", fileContentAsBuffer);
 
   console.log("D", JSON.parse(fileContentAsBuffer));
-  const authorsArray = JSON.parse(fileContentAsBuffer);
+
+  const authorsArray = getAuthors();
 
   res.send(authorsArray);
 });
@@ -59,7 +65,7 @@ authorsRouter.get("/:authorId", (req, res) => {
 
   //   console.log("ID:", req.params.userId);
 
-  const authorsArray = JSON.parse(fs.readFileSync(authorsJSONPath));
+  const authorsArray = getAuthors();
 
   const author = authorsArray.find(
     (author) => author.id === req.params.authorId
@@ -70,8 +76,10 @@ authorsRouter.get("/:authorId", (req, res) => {
   res.send(author);
 });
 
+// PUT
+
 authorsRouter.put("/:authorId", (req, res) => {
-  const authorsArray = JSON.parse(fs.readFileSync(authorsJSONPath));
+  const authorsArray = getAuthors();
 
   const index = authorsArray.findIndex(
     (author) => author.id === req.params.authorId
@@ -83,25 +91,29 @@ authorsRouter.put("/:authorId", (req, res) => {
 
   authorsArray[index] = updatedAuthor;
 
-  fs.writeFileSync(authorsJSONPath, JSON.stringify(authorsArray));
+  writeAuthors(authorsArray);
 
   res.send(updatedAuthor);
 });
 
+// DELETE
+
 authorsRouter.delete("/:authorId", (req, res) => {
-  const authorsArray = JSON.parse(fs.readFileSync(authorsJSONPath));
+  const authorsArray = getAuthors();
 
   const remainingAuthors = authorsArray.filter(
     (author) => author.id !== req.params.authorId
   );
 
-  fs.writeFileSync(authorsJSONPath, JSON.stringify(remainingAuthors));
+  writeAuthors(authorsArray);
 
   res.status(204).send();
 });
 
+// POST (checkEmail)
+
 authorsRouter.post("/checkEmail", (req, res) => {
-  const authorsArray = JSON.parse(fs.readFileSync(authorsJSONPath));
+  const authorsArray = getAuthors();
 
   const emailInUse = authorsArray.some(
     (author) => author.email === req.body.email

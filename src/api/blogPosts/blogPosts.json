@@ -18,5 +18,16 @@
     "content": "HTML",
     "createdAt": "2023-03-05T14:19:51.077Z",
     "id": "ek26t109blevhcl9h"
+  },
+  {
+    "category": "put test1",
+    "title": "put test1",
+    "cover": "ARTICLE COVER (IMAGE LINK)",
+    "readTime": { "value": 2, "unit": "minute" },
+    "author": { "name": "AUTHOR AVATAR NAME", "avatar": "AUTHOR AVATAR LINK" },
+    "content": "HTML",
+    "createdAt": "2023-03-05T18:35:27.127Z",
+    "id": "ek26t13yolevqhamw",
+    "updatedAt": "2023-03-05T18:35:54.838Z"
   }
 ]

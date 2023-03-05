@@ -13,6 +13,11 @@ const blogPostsJSONPath = join(
   "blogPosts.json"
 );
 
+const getBlogPosts = () => JSON.parse(fs.readFileSync(blogPostsJSONPath));
+
+const writeBlogPosts = (blogPostsArray) =>
+  fs.writeFileSync(blogPostsJSONPath, JSON.stringify(blogPostsArray));
+
 // POST (new blog post)
 
 blogPostsRouter.post("/", (req, res) => {
@@ -24,13 +29,13 @@ blogPostsRouter.post("/", (req, res) => {
     id: uniqid(),
   };
 
-  const blogPostsArray = JSON.parse(fs.readFileSync(blogPostsJSONPath));
+  const blogPostsArray = getBlogPosts();
 
   blogPostsArray.push(newBlogPost);
 
   console.log("E", newBlogPost);
 
-  fs.writeFileSync(blogPostsJSONPath, JSON.stringify(blogPostsArray));
+  writeBlogPosts(blogPostsArray);
 
   res.status(201).send({ id: newBlogPost.id });
 });
@@ -42,7 +47,7 @@ blogPostsRouter.get("/", (req, res) => {
   console.log("F", fileContentAsBuffer);
 
   console.log("G", JSON.parse(fileContentAsBuffer));
-  const blogPostsArray = JSON.parse(fileContentAsBuffer);
+  const blogPostsArray = getBlogPosts();
 
   res.send(blogPostsArray);
 });
@@ -54,7 +59,7 @@ blogPostsRouter.get("/:blogPostId", (req, res) => {
 
   //   console.log("ID:", req.params.blogPostId);
 
-  const blogPostsArray = JSON.parse(fs.readFileSync(blogPostsJSONPath));
+  const blogPostsArray = getBlogPosts();
 
   const blogPost = blogPostsArray.find(
     (blogPost) => blogPost.id === req.params.blogPostId
@@ -68,7 +73,7 @@ blogPostsRouter.get("/:blogPostId", (req, res) => {
 // PUT
 
 blogPostsRouter.put("/:blogPostId", (req, res) => {
-  const blogPostsArray = JSON.parse(fs.readFileSync(blogPostsJSONPath));
+  const blogPostsArray = getBlogPosts();
 
   const index = blogPostsArray.findIndex(
     (blogPost) => blogPost.id === req.params.blogPostId
@@ -84,7 +89,7 @@ blogPostsRouter.put("/:blogPostId", (req, res) => {
 
   blogPostsArray[index] = updatedBlogPost;
 
-  fs.writeFileSync(blogPostsJSONPath, JSON.stringify(blogPostsArray));
+  writeBlogPosts(blogPostsArray);
 
   res.send(updatedBlogPost);
 });
@@ -92,13 +97,13 @@ blogPostsRouter.put("/:blogPostId", (req, res) => {
 // DELETE
 
 blogPostsRouter.delete("/:blogPostId", (req, res) => {
-  const blogPostsArray = JSON.parse(fs.readFileSync(blogPostsJSONPath));
+  const blogPostsArray = getBlogPosts();
 
   const remainingBlogPosts = blogPostsArray.filter(
     (blogPost) => blogPost.id !== req.params.blogPostId
   );
 
-  fs.writeFileSync(blogPostsJSONPath, JSON.stringify(remainingBlogPosts));
+  writeBlogPosts(blogPostsArray);
 
   res.status(204).send();
 });
