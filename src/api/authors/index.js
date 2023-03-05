@@ -20,7 +20,7 @@ console.log(
 // POST (new author)
 
 authorsRouter.post("/", (req, res) => {
-  res.send({ message: "Hello I am the POST endpoint" });
+  // res.send({ message: "Hello I am the POST endpoint" });
   console.log("A", req.body);
   const newAuthor = {
     ...req.body,

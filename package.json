@@ -1,12 +1,12 @@
 {
-  "name": "m1d2-restfulapiandexpressjs",
+  "name": "m1d3-middlewaresanderrorhandling",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon -e js ./src/server.js"
   },
   "keywords": [],
   "author": "",
