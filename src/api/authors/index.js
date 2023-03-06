@@ -6,6 +6,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import uniqid from "uniqid";
 import createHttpError from "http-errors";
+import { checkAuthorsSchema, triggerBadRequest } from "../validation.js";
 
 const authorsRouter = Express.Router();
 
@@ -25,40 +26,45 @@ const writeAuthors = (authorsArray) =>
 
 // POST (new author)
 
-authorsRouter.post("/", (req, res, next) => {
-  try {
-    const newAuthor = {
-      ...req.body,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      id: uniqid(),
-    };
+authorsRouter.post(
+  "/",
+  checkAuthorsSchema,
+  triggerBadRequest,
+  (req, res, next) => {
+    try {
+      const newAuthor = {
+        ...req.body,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        id: uniqid(),
+      };
 
-    const authorsArray = getAuthors();
+      const authorsArray = getAuthors();
 
-    const emailInUse = authorsArray.some(
-      (author) => author.email === req.body.email
-    );
-
-    if (!emailInUse) {
-      authorsArray.push(newAuthor);
-      writeAuthors(authorsArray);
-      res.status(201).send({
-        name: newAuthor.name + " " + newAuthor.surname,
-        id: newAuthor.id,
-      });
-    } else {
-      next(
-        createHttpError(
-          400,
-          `${req.body.email} is already registered to another user `
-        )
+      const emailInUse = authorsArray.some(
+        (author) => author.email === req.body.email
       );
+
+      if (!emailInUse) {
+        authorsArray.push(newAuthor);
+        writeAuthors(authorsArray);
+        res.status(201).send({
+          name: newAuthor.name + " " + newAuthor.surname,
+          id: newAuthor.id,
+        });
+      } else {
+        next(
+          createHttpError(
+            400,
+            `${req.body.email} is already registered to another user `
+          )
+        );
+      }
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 // GET (all authors)
 
@@ -93,34 +99,39 @@ authorsRouter.get("/:authorId", (req, res, next) => {
 
 // PUT
 
-authorsRouter.put("/:authorId", (req, res, next) => {
-  try {
-    const authorsArray = getAuthors();
-    const index = authorsArray.findIndex(
-      (author) => author.id === req.params.authorId
-    );
-    if (index !== -1) {
-      const oldAuthor = authorsArray[index];
-      const updatedAuthor = {
-        ...oldAuthor,
-        ...req.body,
-        updatedAt: new Date(),
-      };
-      authorsArray[index] = updatedAuthor;
-      writeAuthors(authorsArray);
-      res.send(updatedAuthor);
-    } else {
-      next(
-        createHttpError(
-          404,
-          `There is no author with this ${req.body.authorId} id`
-        )
+authorsRouter.put(
+  "/:authorId",
+  checkAuthorsSchema,
+  triggerBadRequest,
+  (req, res, next) => {
+    try {
+      const authorsArray = getAuthors();
+      const index = authorsArray.findIndex(
+        (author) => author.id === req.params.authorId
       );
+      if (index !== -1) {
+        const oldAuthor = authorsArray[index];
+        const updatedAuthor = {
+          ...oldAuthor,
+          ...req.body,
+          updatedAt: new Date(),
+        };
+        authorsArray[index] = updatedAuthor;
+        writeAuthors(authorsArray);
+        res.send(updatedAuthor);
+      } else {
+        next(
+          createHttpError(
+            404,
+            `There is no author with this ${req.body.authorId} id`
+          )
+        );
+      }
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 // DELETE
 
