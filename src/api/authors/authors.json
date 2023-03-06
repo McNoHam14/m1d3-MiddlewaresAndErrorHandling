@@ -1,72 +1,32 @@
 [
   {
-    "name": "Marie",
+    "name": "Steve",
     "surname": "Doe",
-    "email": "jane@test.com",
+    "email": "jane1@test.com",
     "DoB": "01/01/1980",
     "avatar": "https://ui-avatars.com/api/?name=John+Doe",
-    "createdAt": "2023-03-04T11:41:41.839Z",
-    "updatedAt": "2023-03-04T12:35:04.998Z",
-    "id": "ek26tmf2letw9cnk"
+    "createdAt": "2023-03-06T13:08:02.935Z",
+    "updatedAt": "2023-03-06T13:08:02.935Z",
+    "id": "ek26t1kuilewu83qx"
   },
   {
     "name": "Steve",
     "surname": "Doe",
-    "email": "jane@test.com",
+    "email": "jane2@test.com",
     "DoB": "01/01/1980",
     "avatar": "https://ui-avatars.com/api/?name=John+Doe",
-    "createdAt": "2023-03-05T14:13:26.204Z",
-    "updatedAt": "2023-03-05T14:13:26.204Z",
-    "id": "ek26t105plevh4cak"
+    "createdAt": "2023-03-06T13:08:09.725Z",
+    "updatedAt": "2023-03-06T13:08:09.725Z",
+    "id": "ek26t1kuilewu88zh"
   },
   {
     "name": "Steve",
     "surname": "Doe",
-    "email": "jane@test.com",
+    "email": "jane3@test.com",
     "DoB": "01/01/1980",
     "avatar": "https://ui-avatars.com/api/?name=John+Doe",
-    "createdAt": "2023-03-05T14:13:33.611Z",
-    "updatedAt": "2023-03-05T14:13:33.611Z",
-    "id": "ek26t105plevh4i0b"
-  },
-  {
-    "name": "Steve",
-    "surname": "Doe",
-    "email": "jane@test.com",
-    "DoB": "01/01/1980",
-    "avatar": "https://ui-avatars.com/api/?name=John+Doe",
-    "createdAt": "2023-03-05T14:13:34.276Z",
-    "updatedAt": "2023-03-05T14:13:34.276Z",
-    "id": "ek26t105plevh4iis"
-  },
-  {
-    "name": "Steve",
-    "surname": "Doe",
-    "email": "jane@test.com",
-    "DoB": "01/01/1980",
-    "avatar": "https://ui-avatars.com/api/?name=John+Doe",
-    "createdAt": "2023-03-05T14:13:34.884Z",
-    "updatedAt": "2023-03-05T14:13:34.884Z",
-    "id": "ek26t105plevh4izo"
-  },
-  {
-    "name": "Steve",
-    "surname": "Doe",
-    "email": "jane@test.com",
-    "DoB": "01/01/1980",
-    "avatar": "https://ui-avatars.com/api/?name=John+Doe",
-    "createdAt": "2023-03-05T14:13:53.119Z",
-    "updatedAt": "2023-03-05T14:13:53.119Z",
-    "id": "ek26t108slevh4x28"
-  },
-  {
-    "name": "Steve",
-    "surname": "Doe",
-    "email": "jane@test.com",
-    "DoB": "01/01/1980",
-    "avatar": "https://ui-avatars.com/api/?name=John+Doe",
-    "createdAt": "2023-03-05T18:17:44.050Z",
-    "updatedAt": "2023-03-05T18:17:44.050Z",
-    "id": "ek26t12yslevpuicz"
+    "createdAt": "2023-03-06T13:08:12.947Z",
+    "updatedAt": "2023-03-06T13:08:12.947Z",
+    "id": "ek26t1kuilewu8bgz"
   }
 ]
